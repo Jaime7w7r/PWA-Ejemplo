@@ -21,12 +21,17 @@ self.addEventListener("install", installEvent => {
             cache.addAll(assets)
         })
     )
+    self.skipWaiting(); // Agrega esta línea para activar el Service Worker inmediatamente
 })
 
-self.addEventListener("fetch", fetchEvent => {
-    fetchEvent.respondWith(
-        caches.match(fetchEvent.request).then(res => {
-            return res || fetch(fetchEvent.request)
+self.addEventListener("activate", activateEvent => {
+    activateEvent.waitUntil(
+        // Elimina las caches antiguas si existen
+        caches.keys().then(cacheNames => {
+            return Promise.all(
+                cacheNames.filter(cacheName => cacheName !== staticDevCoffee)
+                    .map(cacheName => caches.delete(cacheName))
+            );
         })
-    )
+    );
 })

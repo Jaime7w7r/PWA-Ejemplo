@@ -20,7 +20,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="css/style.css" />
     <title>Dev'Coffee PWA</title>
-    <link rel="icon" href="images/icons/icon.png" </head>
+    <link rel="icon" href="images/icons/icon.png" />
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/serviceWorker.js').then(function (registration) {
+                    console.log('Service Worker registrado con éxito:', registration);
+                }).catch(function (error) {
+                    console.log('Error al registrar el Service Worker:', error);
+                });
+            });
+        }
+    </script>
+</head>
 
 <body>
     <main>
