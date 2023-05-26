@@ -38,7 +38,9 @@ window.addEventListener('load', function () {
             console.log('Service Worker registered successfully:', registration);
 
             if (deferredPrompt) {
-                alert('¡Instala nuestra aplicación!');
+                setTimeout(function () {
+                    deferredPrompt.prompt(); // Mostrar la pantalla de instalación
+                }, 5000); // Retrasar 5000 milisegundos (5 segundos)
             }
         }).catch(function (error) {
             console.log('Error registering Service Worker:', error);
